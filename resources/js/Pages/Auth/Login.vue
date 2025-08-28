@@ -1,5 +1,6 @@
 <script setup>
 import Checkbox from '@/Components/Checkbox.vue';
+import Radio from '@/Components/Radio.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -20,6 +21,7 @@ const form = useForm({
     email: '',
     password: '',
     remember: false,
+    user_type: 'user',
 });
 
 const submit = () => {
@@ -38,6 +40,29 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
+            <div class="mb-4">
+                <InputLabel for="user_type" value="Login as" />
+                
+                <div class="mt-2 flex space-x-6">
+                    <label class="flex items-center">
+                        <Radio
+                            name="user_type"
+                            value="user"
+                            v-model="form.user_type"
+                        />
+                        <span class="ml-2 text-sm text-gray-700">User</span>
+                    </label>
+                    <label class="flex items-center">
+                        <Radio
+                            name="user_type"
+                            value="admin"
+                            v-model="form.user_type"
+                        />
+                        <span class="ml-2 text-sm text-gray-700">Admin</span>
+                    </label>
+                </div>
+            </div>
+
             <div>
                 <InputLabel for="email" value="Email" />
 
