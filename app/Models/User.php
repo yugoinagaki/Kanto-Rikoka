@@ -18,9 +18,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'player_number',
+        'university_id',
+        'university_player_number',
         'name',
         'email',
         'password',
+        'gender',
+        'grade',
+        'years_enrolled',
+        'is_stem',
+        'singles_points',
+        'doubles_points',
     ];
 
     /**
@@ -41,8 +50,13 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_stem' => 'boolean', // 0 = false, 1 = true
         ];
+    }
+
+    public function university()
+    {
+        return $this->belongsTo(University::class);
     }
 }
