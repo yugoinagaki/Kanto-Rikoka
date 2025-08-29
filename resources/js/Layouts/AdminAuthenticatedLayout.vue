@@ -76,7 +76,9 @@ const showingNavigationDropdown = ref(false);
                                         </span>
                                     </template>
 
-                                    <template #content>
+                                    <template
+                                        #content
+                                        style="z-index: 9999;">
                                         <DropdownLink
                                             :href="route('admin.profile.edit')"
                                         >

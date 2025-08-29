@@ -22,6 +22,11 @@ const props = defineProps({
 const LayoutComponent = computed(() => {
     return props.isAdmin ? AdminAuthenticatedLayout : AuthenticatedLayout;
 });
+
+const handleEdit = () => {
+    console.log('Button clicked!');
+    window.location.href = '/admin/universities/edit';
+};
 </script>
 
 <template>
@@ -29,9 +34,18 @@ const LayoutComponent = computed(() => {
 
     <component :is="LayoutComponent">
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                大学一覧
-            </h2>
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
+                    大学一覧
+                </h2>
+                <button
+                    v-if="isAdmin"
+                    @click="handleEdit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-150 ease-in-out"
+                >
+                    順位を編集
+                </button>
+            </div>
         </template>
 
         <div class="py-12">
@@ -45,8 +59,8 @@ const LayoutComponent = computed(() => {
                                     男子
                                 </h3>
                                 <div class="space-y-4">
-                                    <div 
-                                        v-for="(universities, league) in boysUniversities" 
+                                    <div
+                                        v-for="(universities, league) in boysUniversities"
                                         :key="`boys-${league}`"
                                         class="rounded-lg border border-gray-200 p-4"
                                     >
@@ -54,12 +68,13 @@ const LayoutComponent = computed(() => {
                                             {{ league }}部
                                         </h4>
                                         <ul class="space-y-2">
-                                            <li 
-                                                v-for="university in universities" 
+                                            <li
+                                                v-for="(university, index) in universities"
                                                 :key="`boys-${university.id}`"
-                                                class="rounded bg-blue-50 px-3 py-2 text-sm text-gray-800"
+                                                class="flex items-center justify-between rounded bg-blue-50 px-3 py-2 text-sm text-gray-800"
                                             >
-                                                {{ university.name }}
+                                                <span>{{ university.name }}</span>
+                                                <span class="font-medium text-blue-600">{{ index + 1 }}位</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -72,8 +87,8 @@ const LayoutComponent = computed(() => {
                                     女子
                                 </h3>
                                 <div class="space-y-4">
-                                    <div 
-                                        v-for="(universities, league) in girlsUniversities" 
+                                    <div
+                                        v-for="(universities, league) in girlsUniversities"
                                         :key="`girls-${league}`"
                                         class="rounded-lg border border-gray-200 p-4"
                                     >
@@ -81,12 +96,13 @@ const LayoutComponent = computed(() => {
                                             {{ league }}部
                                         </h4>
                                         <ul class="space-y-2">
-                                            <li 
-                                                v-for="university in universities" 
+                                            <li
+                                                v-for="(university, index) in universities"
                                                 :key="`girls-${university.id}`"
-                                                class="rounded bg-pink-50 px-3 py-2 text-sm text-gray-800"
+                                                class="flex items-center justify-between rounded bg-pink-50 px-3 py-2 text-sm text-gray-800"
                                             >
-                                                {{ university.name }}
+                                                <span>{{ university.name }}</span>
+                                                <span class="font-medium text-pink-600">{{ index + 1 }}位</span>
                                             </li>
                                         </ul>
                                     </div>

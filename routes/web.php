@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/universities', [UniversityController::class, 'index'])->name('universities.index');
+    Route::get('/universities/edit', [UniversityController::class, 'edit'])->name('universities.edit');
+    Route::put('/universities', [UniversityController::class, 'update'])->name('universities.update');
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
