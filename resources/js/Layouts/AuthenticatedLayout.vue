@@ -39,6 +39,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    :href="route('universities.index')"
+                                    :active="route().current('universities.*')"
+                                >
+                                    大学一覧
+                                </NavLink>
                             </div>
                         </div>
 
@@ -145,6 +151,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('universities.index')"
+                            :active="route().current('universities.*')"
+                        >
+                            大学一覧
                         </ResponsiveNavLink>
                     </div>
 
