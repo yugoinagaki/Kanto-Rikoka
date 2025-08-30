@@ -9,6 +9,8 @@ class University extends Model
     protected $fillable = [
         'name',
         'boys_league',
-        'girls_league'
+        'boys_rank',
+        'girls_league',
+        'girls_rank'
     ];
 }
