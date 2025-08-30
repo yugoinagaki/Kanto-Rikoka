@@ -58,16 +58,16 @@ const navigateToUserList = (gender) => {
                         男子部門
                     </h3>
                     
-                    <div v-if="university.boys_league" class="bg-blue-50 rounded-lg p-4">
+                    <div v-if="university.boys_division" class="bg-blue-50 rounded-lg p-4">
                         <div class="space-y-3">
                             <div>
                                 <dt class="text-sm font-medium text-gray-600">所属リーグ</dt>
-                                <dd class="text-xl font-bold text-blue-600">{{ university.boys_league }}部</dd>
+                                <dd class="text-xl font-bold text-blue-600">{{ university.boys_division }}部</dd>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500">リーグ内順位</dt>
-                                    <dd class="text-lg font-semibold text-blue-600">{{ university.boys_league_rank || '-' }}位</dd>
+                                    <dd class="text-lg font-semibold text-blue-600">{{ university.boys_division_rank || '-' }}位</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500">全体順位</dt>
@@ -91,16 +91,16 @@ const navigateToUserList = (gender) => {
                         女子部門
                     </h3>
                     
-                    <div v-if="university.girls_league" class="bg-pink-50 rounded-lg p-4">
+                    <div v-if="university.girls_division" class="bg-pink-50 rounded-lg p-4">
                         <div class="space-y-3">
                             <div>
                                 <dt class="text-sm font-medium text-gray-600">所属リーグ</dt>
-                                <dd class="text-xl font-bold text-pink-600">{{ university.girls_league }}部</dd>
+                                <dd class="text-xl font-bold text-pink-600">{{ university.girls_division }}部</dd>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500">リーグ内順位</dt>
-                                    <dd class="text-lg font-semibold text-pink-600">{{ university.girls_league_rank || '-' }}位</dd>
+                                    <dd class="text-lg font-semibold text-pink-600">{{ university.girls_division_rank || '-' }}位</dd>
                                 </div>
                                 <div>
                                     <dt class="text-xs font-medium text-gray-500">全体順位</dt>
@@ -127,7 +127,7 @@ const navigateToUserList = (gender) => {
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <button
-                        v-if="university.boys_league"
+                        v-if="university.boys_division"
                         @click="navigateToUserList('male')"
                         class="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-150 ease-in-out"
                     >
@@ -145,7 +145,7 @@ const navigateToUserList = (gender) => {
                     </div>
 
                     <button
-                        v-if="university.girls_league"
+                        v-if="university.girls_division"
                         @click="navigateToUserList('female')"
                         class="flex items-center justify-center px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg transition duration-150 ease-in-out"
                     >

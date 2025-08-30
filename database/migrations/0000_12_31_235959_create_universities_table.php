@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('universities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('boys_league')->nullable();
-            $table->string('girls_league')->nullable();
+            $table->string('boys_division')->nullable();
+            $table->string('girls_division')->nullable();
             $table->timestamps();
         });
     }
