@@ -2,7 +2,8 @@
 import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import AdminAuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
-import { computed } from 'vue';
+import UniversityDetailModal from '@/Components/UniversityDetailModal.vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
     boysUniversities: {
@@ -19,6 +20,10 @@ const props = defineProps({
     },
 });
 
+// モーダル関連
+const showUniversityModal = ref(false);
+const selectedUniversity = ref(null);
+
 const LayoutComponent = computed(() => {
     return props.isAdmin ? AdminAuthenticatedLayout : AuthenticatedLayout;
 });
@@ -26,6 +31,47 @@ const LayoutComponent = computed(() => {
 const handleEdit = () => {
     console.log('Button clicked!');
     window.location.href = '/admin/universities/edit';
+};
+
+const openUniversityModal = (university, clickedLeagueRank = null, clickedGender = null) => {
+    // 男女両方のリーグ内順位を検索
+    const universityWithRanks = { ...university };
+    
+    // 男子のリーグ内順位を検索
+    if (clickedGender === 'boys') {
+        universityWithRanks.boys_league_rank = clickedLeagueRank;
+    } else {
+        // 男子リーグから該当大学を検索
+        for (const [league, universities] of Object.entries(props.boysUniversities)) {
+            const foundIndex = universities.findIndex(u => u.id === university.id);
+            if (foundIndex !== -1) {
+                universityWithRanks.boys_league_rank = foundIndex + 1;
+                break;
+            }
+        }
+    }
+    
+    // 女子のリーグ内順位を検索
+    if (clickedGender === 'girls') {
+        universityWithRanks.girls_league_rank = clickedLeagueRank;
+    } else {
+        // 女子リーグから該当大学を検索
+        for (const [league, universities] of Object.entries(props.girlsUniversities)) {
+            const foundIndex = universities.findIndex(u => u.id === university.id);
+            if (foundIndex !== -1) {
+                universityWithRanks.girls_league_rank = foundIndex + 1;
+                break;
+            }
+        }
+    }
+    
+    selectedUniversity.value = universityWithRanks;
+    showUniversityModal.value = true;
+};
+
+const closeUniversityModal = () => {
+    showUniversityModal.value = false;
+    selectedUniversity.value = null;
 };
 </script>
 
@@ -71,7 +117,8 @@ const handleEdit = () => {
                                             <li
                                                 v-for="(university, index) in universities"
                                                 :key="`boys-${university.id}`"
-                                                class="flex items-center justify-between rounded bg-blue-50 px-3 py-2 text-sm text-gray-800"
+                                                @click="openUniversityModal(university, index + 1, 'boys')"
+                                                class="flex items-center justify-between rounded bg-blue-50 px-3 py-2 text-sm text-gray-800 cursor-pointer hover:bg-blue-100 transition-colors duration-150"
                                             >
                                                 <span>{{ university.name }}</span>
                                                 <span class="font-medium text-blue-600">{{ index + 1 }}位</span>
@@ -99,7 +146,8 @@ const handleEdit = () => {
                                             <li
                                                 v-for="(university, index) in universities"
                                                 :key="`girls-${university.id}`"
-                                                class="flex items-center justify-between rounded bg-pink-50 px-3 py-2 text-sm text-gray-800"
+                                                @click="openUniversityModal(university, index + 1, 'girls')"
+                                                class="flex items-center justify-between rounded bg-pink-50 px-3 py-2 text-sm text-gray-800 cursor-pointer hover:bg-pink-100 transition-colors duration-150"
                                             >
                                                 <span>{{ university.name }}</span>
                                                 <span class="font-medium text-pink-600">{{ index + 1 }}位</span>
@@ -113,5 +161,13 @@ const handleEdit = () => {
                 </div>
             </div>
         </div>
+
+        <!-- 大学詳細モーダル -->
+        <UniversityDetailModal 
+            :show="showUniversityModal"
+            :university="selectedUniversity"
+            :is-admin="isAdmin"
+            @close="closeUniversityModal"
+        />
     </component>
 </template>
