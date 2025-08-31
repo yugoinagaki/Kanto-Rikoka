@@ -61,10 +61,10 @@ defineProps({
                     <div class="p-6 text-gray-900">
                         <h3 class="text-lg font-medium mb-4">団体戦情報</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="p-4 border border-gray-200 rounded-lg">
+                            <Link :href="route('admin.leagues.index')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                                 <h4 class="font-medium text-gray-900">大会</h4>
                                 <p class="text-sm text-gray-600 mt-1">団体戦の大会管理</p>
-                            </div>
+                            </Link>
                             <div class="p-4 border border-gray-200 rounded-lg">
                                 <h4 class="font-medium text-gray-900">試合</h4>
                                 <p class="text-sm text-gray-600 mt-1">団体戦の試合管理</p>

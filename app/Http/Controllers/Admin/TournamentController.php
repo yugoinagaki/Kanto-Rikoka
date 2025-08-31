@@ -47,4 +47,11 @@ class TournamentController extends Controller
         return redirect()->route('admin.tournaments.index')
             ->with('message', '大会を作成しました。');
     }
+
+    public function show(Tournament $tournament)
+    {
+        return Inertia::render('Admin/Tournaments/Show', [
+            'tournament' => $tournament,
+        ]);
+    }
 }
