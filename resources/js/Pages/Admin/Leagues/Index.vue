@@ -52,7 +52,12 @@ const props = defineProps({
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        <tr v-for="league in props.leagues" :key="league.id" class="hover:bg-gray-50">
+                                        <tr 
+                                            v-for="league in props.leagues" 
+                                            :key="league.id" 
+                                            class="hover:bg-gray-50 cursor-pointer"
+                                            @click="$inertia.get(route('admin.leagues.show', league.id))"
+                                        >
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {{ league.name }}
                                             </td>

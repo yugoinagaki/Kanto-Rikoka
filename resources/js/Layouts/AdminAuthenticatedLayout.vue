@@ -57,6 +57,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     個人戦管理
                                 </NavLink>
+                                <NavLink
+                                    :href="route('admin.leagues.index')"
+                                    :active="route().current('admin.tournaments.*')"
+                                >
+                                    団体戦管理
+                                </NavLink>
                             </div>
                         </div>
 

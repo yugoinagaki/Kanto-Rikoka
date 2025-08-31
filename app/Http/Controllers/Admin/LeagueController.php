@@ -39,4 +39,11 @@ class LeagueController extends Controller
         return redirect()->route('admin.leagues.index')
             ->with('message', 'リーグを作成しました。');
     }
+
+    public function show(League $league)
+    {
+        return Inertia::render('Admin/Leagues/Show', [
+            'league' => $league,
+        ]);
+    }
 }
