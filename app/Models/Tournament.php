@@ -14,11 +14,13 @@ class Tournament extends Model
         'starts_on',
         'ends_on',
         'year',
-        'tournament_point_id',
+        'categories',
+        'tournament_point_rule_id',
     ];
 
     protected $casts = [
         'starts_on' => 'date',
         'ends_on' => 'date',
+        'categories' => 'array',
     ];
 }

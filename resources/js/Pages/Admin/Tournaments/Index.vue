@@ -1,6 +1,6 @@
 <script setup>
 import AdminAuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     auth: Object,
@@ -22,11 +22,20 @@ const props = defineProps({
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
+                        <div class="mb-6 flex justify-between items-center">
+                            <h3 class="text-lg font-medium">個人戦大会一覧</h3>
+                            <Link
+                                :href="route('admin.tournaments.create')"
+                                class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 transition ease-in-out duration-150"
+                            >
+                                大会を新規作成
+                            </Link>
+                        </div>
+                        
                         <div v-if="props.tournaments.length === 0" class="text-center py-8">
                             <p class="text-gray-500 text-lg">登録されている個人戦大会はありません</p>
                         </div>
                         <div v-else>
-                            <h3 class="text-lg font-medium mb-4">個人戦大会一覧</h3>
                             <div class="overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50">
@@ -52,13 +61,13 @@ const props = defineProps({
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 <span v-if="tournament.starts_on && tournament.ends_on">
-                                                    {{ tournament.starts_on }}〜{{ tournament.ends_on }}
+                                                    {{ new Date(tournament.starts_on).toLocaleDateString('ja-JP') }}〜{{ new Date(tournament.ends_on).toLocaleDateString('ja-JP') }}
                                                 </span>
                                                 <span v-else-if="tournament.starts_on">
-                                                    {{ tournament.starts_on }}〜
+                                                    {{ new Date(tournament.starts_on).toLocaleDateString('ja-JP') }}〜
                                                 </span>
                                                 <span v-else-if="tournament.ends_on">
-                                                    〜{{ tournament.ends_on }}
+                                                    〜{{ new Date(tournament.ends_on).toLocaleDateString('ja-JP') }}
                                                 </span>
                                                 <span v-else>-</span>
                                             </td>
