@@ -17,7 +17,8 @@ return new class extends Migration
             $table->date('starts_on')->nullable();
             $table->date('ends_on')->nullable();
             $table->year('year');
-            $table->unsignedBigInteger('tournament_point_id')->nullable();
+            $table->json('categories')->nullable();
+            $table->unsignedBigInteger('tournament_point_rule_id')->nullable();
             $table->timestamps();
         });
     }
