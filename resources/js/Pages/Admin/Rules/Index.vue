@@ -24,9 +24,9 @@ defineProps({
                     <div class="p-6 text-gray-900">
                         <h3 class="text-lg font-medium mb-4">ルール・要項管理メニュー</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <Link :href="route('admin.tournament-points.create')" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                                <h4 class="font-medium text-gray-900">新規作成</h4>
-                                <p class="text-sm text-gray-600 mt-1">新たなポイント表を作成</p>
+                            <Link :href="route('admin.tournament-points.create')" class="p-4 border-2 border-blue-500 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer">
+                                <h4 class="font-medium text-blue-600">新規作成</h4>
+                                <p class="text-sm text-blue-500 mt-1">新たなポイント表を作成</p>
                             </Link>
                             <Link 
                                 v-for="grade in grades" 
