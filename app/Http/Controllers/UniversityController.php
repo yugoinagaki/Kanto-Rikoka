@@ -16,30 +16,30 @@ class UniversityController extends Controller
         $girlsUniversities = [];
         
         foreach ($universities as $university) {
-            if ($university->boys_league !== null) {
-                if (!isset($boysUniversities[$university->boys_league])) {
-                    $boysUniversities[$university->boys_league] = [];
+            if ($university->boys_division !== null) {
+                if (!isset($boysUniversities[$university->boys_division])) {
+                    $boysUniversities[$university->boys_division] = [];
                 }
-                $boysUniversities[$university->boys_league][] = $university;
+                $boysUniversities[$university->boys_division][] = $university;
             }
             
-            if ($university->girls_league !== null) {
-                if (!isset($girlsUniversities[$university->girls_league])) {
-                    $girlsUniversities[$university->girls_league] = [];
+            if ($university->girls_division !== null) {
+                if (!isset($girlsUniversities[$university->girls_division])) {
+                    $girlsUniversities[$university->girls_division] = [];
                 }
-                $girlsUniversities[$university->girls_league][] = $university;
+                $girlsUniversities[$university->girls_division][] = $university;
             }
         }
         
         // 各リーグ内で順位順にソート
-        foreach ($boysUniversities as $league => $universities) {
-            usort($boysUniversities[$league], function($a, $b) {
+        foreach ($boysUniversities as $division => $universities) {
+            usort($boysUniversities[$division], function($a, $b) {
                 return ($a->boys_rank ?? 999) <=> ($b->boys_rank ?? 999);
             });
         }
         
-        foreach ($girlsUniversities as $league => $universities) {
-            usort($girlsUniversities[$league], function($a, $b) {
+        foreach ($girlsUniversities as $division => $universities) {
+            usort($girlsUniversities[$division], function($a, $b) {
                 return ($a->girls_rank ?? 999) <=> ($b->girls_rank ?? 999);
             });
         }
@@ -65,30 +65,30 @@ class UniversityController extends Controller
         $girlsUniversities = [];
         
         foreach ($universities as $university) {
-            if ($university->boys_league !== null) {
-                if (!isset($boysUniversities[$university->boys_league])) {
-                    $boysUniversities[$university->boys_league] = [];
+            if ($university->boys_division !== null) {
+                if (!isset($boysUniversities[$university->boys_division])) {
+                    $boysUniversities[$university->boys_division] = [];
                 }
-                $boysUniversities[$university->boys_league][] = $university;
+                $boysUniversities[$university->boys_division][] = $university;
             }
             
-            if ($university->girls_league !== null) {
-                if (!isset($girlsUniversities[$university->girls_league])) {
-                    $girlsUniversities[$university->girls_league] = [];
+            if ($university->girls_division !== null) {
+                if (!isset($girlsUniversities[$university->girls_division])) {
+                    $girlsUniversities[$university->girls_division] = [];
                 }
-                $girlsUniversities[$university->girls_league][] = $university;
+                $girlsUniversities[$university->girls_division][] = $university;
             }
         }
         
         // 各リーグ内で順位順にソート
-        foreach ($boysUniversities as $league => $universities) {
-            usort($boysUniversities[$league], function($a, $b) {
+        foreach ($boysUniversities as $division => $universities) {
+            usort($boysUniversities[$division], function($a, $b) {
                 return ($a->boys_rank ?? 999) <=> ($b->boys_rank ?? 999);
             });
         }
         
-        foreach ($girlsUniversities as $league => $universities) {
-            usort($girlsUniversities[$league], function($a, $b) {
+        foreach ($girlsUniversities as $division => $universities) {
+            usort($girlsUniversities[$division], function($a, $b) {
                 return ($a->girls_rank ?? 999) <=> ($b->girls_rank ?? 999);
             });
         }
@@ -110,16 +110,16 @@ class UniversityController extends Controller
         
         // 男子の全体順位とリーグを更新
         $boysGlobalRank = 1;
-        $sortedBoysLeagues = array_keys($boysUniversities);
-        sort($sortedBoysLeagues, SORT_NUMERIC);
+        $sortedBoysDivisions = array_keys($boysUniversities);
+        sort($sortedBoysDivisions, SORT_NUMERIC);
         
-        foreach ($sortedBoysLeagues as $league) {
-            $universities = $boysUniversities[$league];
+        foreach ($sortedBoysDivisions as $division) {
+            $universities = $boysUniversities[$division];
             foreach ($universities as $universityData) {
                 $university = University::find($universityData['id']);
                 if ($university) {
                     $university->boys_rank = $boysGlobalRank;
-                    $university->boys_league = $league; // リーグも更新
+                    $university->boys_division = $division; // リーグも更新
                     $university->save();
                     $boysGlobalRank++;
                 }
@@ -128,16 +128,16 @@ class UniversityController extends Controller
         
         // 女子の全体順位とリーグを更新
         $girlsGlobalRank = 1;
-        $sortedGirlsLeagues = array_keys($girlsUniversities);
-        sort($sortedGirlsLeagues, SORT_NUMERIC);
+        $sortedGirlsDivisions = array_keys($girlsUniversities);
+        sort($sortedGirlsDivisions, SORT_NUMERIC);
         
-        foreach ($sortedGirlsLeagues as $league) {
-            $universities = $girlsUniversities[$league];
+        foreach ($sortedGirlsDivisions as $division) {
+            $universities = $girlsUniversities[$division];
             foreach ($universities as $universityData) {
                 $university = University::find($universityData['id']);
                 if ($university) {
                     $university->girls_rank = $girlsGlobalRank;
-                    $university->girls_league = $league; // リーグも更新
+                    $university->girls_division = $division; // リーグも更新
                     $university->save();
                     $girlsGlobalRank++;
                 }

@@ -21,8 +21,8 @@ const form = useForm({
 });
 
 // 同じ部内で隣り合う大学を入れ替える
-const swapUniversities = (gender, league, index) => {
-    const array = form[`${gender}Universities`][league];
+const swapUniversities = (gender, division, index) => {
+    const array = form[`${gender}Universities`][division];
     if (index < array.length - 1) {
         const temp = array[index];
         array[index] = array[index + 1];
@@ -31,14 +31,14 @@ const swapUniversities = (gender, league, index) => {
 };
 
 // ソート済みのリーグキーを取得する関数
-const getSortedLeagues = (gender) => {
+const getSortedDivisions = (gender) => {
     return Object.keys(form[`${gender}Universities`]).sort((a, b) => parseInt(a) - parseInt(b));
 };
 
 // 異なるリーグ間で入れ替える（現在のリーグの最下位と次のリーグの最上位）
-const swapBetweenLeagues = (gender, currentLeague, nextLeague) => {
-    const currentArray = form[`${gender}Universities`][currentLeague];
-    const nextArray = form[`${gender}Universities`][nextLeague];
+const swapBetweenDivisions = (gender, currentDivision, nextDivision) => {
+    const currentArray = form[`${gender}Universities`][currentDivision];
+    const nextArray = form[`${gender}Universities`][nextDivision];
     
     if (currentArray.length > 0 && nextArray.length > 0) {
         const temp = currentArray[currentArray.length - 1];
@@ -103,10 +103,10 @@ const save = () => {
                                     男子
                                 </h3>
                                 <div class="space-y-4">
-                                    <template v-for="(universities, league, leagueIndex) in form.boysUniversities" :key="`boys-${league}`">
+                                    <template v-for="(universities, division, divisionIndex) in form.boysUniversities" :key="`boys-${division}`">
                                         <div class="rounded-lg border border-gray-200 p-4">
                                         <h4 class="mb-3 text-lg font-semibold text-gray-700">
-                                            {{ league }}部
+                                            {{ division }}部
                                         </h4>
                                         <div>
                                             <template v-for="(university, index) in universities" :key="`boys-${university.id}`">
@@ -121,7 +121,7 @@ const save = () => {
                                                 <!-- 入れ替えボタン（最後の大学以外） -->
                                                 <div v-if="index < universities.length - 1" class="flex justify-center py-1">
                                                     <button
-                                                        @click="swapUniversities('boys', league, index)"
+                                                        @click="swapUniversities('boys', division, index)"
                                                         class="p-1 text-gray-400 hover:text-blue-600 transition-colors"
                                                         title="入れ替え"
                                                     >
@@ -135,13 +135,13 @@ const save = () => {
                                         </div>
                                         
                                         <!-- リーグ間入れ替えボタン（最後のリーグ以外） -->
-                                        <div v-if="getSortedLeagues('boys').indexOf(league) < getSortedLeagues('boys').length - 1" class="flex justify-center py-2">
+                                        <div v-if="getSortedDivisions('boys').indexOf(division) < getSortedDivisions('boys').length - 1" class="flex justify-center py-2">
                                             <button
-                                                @click="swapBetweenLeagues('boys', league, getSortedLeagues('boys')[getSortedLeagues('boys').indexOf(league) + 1])"
+                                                @click="swapBetweenDivisions('boys', division, getSortedDivisions('boys')[getSortedDivisions('boys').indexOf(division) + 1])"
                                                 class="px-3 py-1 text-xs bg-gray-100 hover:bg-blue-100 text-gray-600 hover:text-blue-600 rounded transition-colors border border-dashed border-gray-300 hover:border-blue-300"
                                                 title="リーグ間入れ替え"
                                             >
-                                                {{ league }}部 ⇅ {{ getSortedLeagues('boys')[getSortedLeagues('boys').indexOf(league) + 1] }}部
+                                                {{ division }}部 ⇅ {{ getSortedDivisions('boys')[getSortedDivisions('boys').indexOf(division) + 1] }}部
                                             </button>
                                         </div>
                                     </template>
@@ -154,10 +154,10 @@ const save = () => {
                                     女子
                                 </h3>
                                 <div class="space-y-4">
-                                    <template v-for="(universities, league, leagueIndex) in form.girlsUniversities" :key="`girls-${league}`">
+                                    <template v-for="(universities, division, divisionIndex) in form.girlsUniversities" :key="`girls-${division}`">
                                         <div class="rounded-lg border border-gray-200 p-4">
                                         <h4 class="mb-3 text-lg font-semibold text-gray-700">
-                                            {{ league }}部
+                                            {{ division }}部
                                         </h4>
                                         <div>
                                             <template v-for="(university, index) in universities" :key="`girls-${university.id}`">
@@ -172,7 +172,7 @@ const save = () => {
                                                 <!-- 入れ替えボタン（最後の大学以外） -->
                                                 <div v-if="index < universities.length - 1" class="flex justify-center py-1">
                                                     <button
-                                                        @click="swapUniversities('girls', league, index)"
+                                                        @click="swapUniversities('girls', division, index)"
                                                         class="p-1 text-gray-400 hover:text-pink-600 transition-colors"
                                                         title="入れ替え"
                                                     >
@@ -186,13 +186,13 @@ const save = () => {
                                         </div>
                                         
                                         <!-- リーグ間入れ替えボタン（最後のリーグ以外） -->
-                                        <div v-if="getSortedLeagues('girls').indexOf(league) < getSortedLeagues('girls').length - 1" class="flex justify-center py-2">
+                                        <div v-if="getSortedDivisions('girls').indexOf(division) < getSortedDivisions('girls').length - 1" class="flex justify-center py-2">
                                             <button
-                                                @click="swapBetweenLeagues('girls', league, getSortedLeagues('girls')[getSortedLeagues('girls').indexOf(league) + 1])"
+                                                @click="swapBetweenDivisions('girls', division, getSortedDivisions('girls')[getSortedDivisions('girls').indexOf(division) + 1])"
                                                 class="px-3 py-1 text-xs bg-gray-100 hover:bg-pink-100 text-gray-600 hover:text-pink-600 rounded transition-colors border border-dashed border-gray-300 hover:border-pink-300"
                                                 title="リーグ間入れ替え"
                                             >
-                                                {{ league }}部 ⇅ {{ getSortedLeagues('girls')[getSortedLeagues('girls').indexOf(league) + 1] }}部
+                                                {{ division }}部 ⇅ {{ getSortedDivisions('girls')[getSortedDivisions('girls').indexOf(division) + 1] }}部
                                             </button>
                                         </div>
                                     </template>

@@ -51,6 +51,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     選手一覧
                                 </NavLink>
+                                <NavLink
+                                    :href="route('admin.tournaments.index')"
+                                    :active="route().current('admin.tournaments.*')"
+                                >
+                                    個人戦管理
+                                </NavLink>
                             </div>
                         </div>
 
@@ -171,6 +177,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('admin.users.*')"
                         >
                             選手一覧
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('admin.tournaments.index')"
+                            :active="route().current('admin.tournaments.*')"
+                        >
+                            大会管理
                         </ResponsiveNavLink>
                     </div>
 

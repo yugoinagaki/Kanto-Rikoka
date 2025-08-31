@@ -14,25 +14,25 @@ class SetDefaultRanksSeeder extends Seeder
         $boysUniversities = [];
         $girlsUniversities = [];
         
-        // リーグごとに大学をグループ化
+        // ディビジョンごとに大学をグループ化
         foreach ($universities as $university) {
-            if ($university->boys_league !== null) {
-                if (!isset($boysUniversities[$university->boys_league])) {
-                    $boysUniversities[$university->boys_league] = [];
+            if ($university->boys_division !== null) {
+                if (!isset($boysUniversities[$university->boys_division])) {
+                    $boysUniversities[$university->boys_division] = [];
                 }
-                $boysUniversities[$university->boys_league][] = $university;
+                $boysUniversities[$university->boys_division][] = $university;
             }
             
-            if ($university->girls_league !== null) {
-                if (!isset($girlsUniversities[$university->girls_league])) {
-                    $girlsUniversities[$university->girls_league] = [];
+            if ($university->girls_division !== null) {
+                if (!isset($girlsUniversities[$university->girls_division])) {
+                    $girlsUniversities[$university->girls_division] = [];
                 }
-                $girlsUniversities[$university->girls_league][] = $university;
+                $girlsUniversities[$university->girls_division][] = $university;
             }
         }
         
         // 男子の順位を設定（アルファベット順で1-4位）
-        foreach ($boysUniversities as $league => $unis) {
+        foreach ($boysUniversities as $division => $unis) {
             // 大学名でソート
             usort($unis, function($a, $b) {
                 return strcmp($a->name, $b->name);
@@ -45,7 +45,7 @@ class SetDefaultRanksSeeder extends Seeder
         }
         
         // 女子の順位を設定（アルファベット順で1-4位）
-        foreach ($girlsUniversities as $league => $unis) {
+        foreach ($girlsUniversities as $division => $unis) {
             // 大学名でソート
             usort($unis, function($a, $b) {
                 return strcmp($a->name, $b->name);

@@ -33,19 +33,19 @@ const handleEdit = () => {
     window.location.href = '/admin/universities/edit';
 };
 
-const openUniversityModal = (university, clickedLeagueRank = null, clickedGender = null) => {
+const openUniversityModal = (university, clickedDivisionRank = null, clickedGender = null) => {
     // 男女両方のリーグ内順位を検索
     const universityWithRanks = { ...university };
     
     // 男子のリーグ内順位を検索
     if (clickedGender === 'boys') {
-        universityWithRanks.boys_league_rank = clickedLeagueRank;
+        universityWithRanks.boys_division_rank = clickedDivisionRank;
     } else {
         // 男子リーグから該当大学を検索
-        for (const [league, universities] of Object.entries(props.boysUniversities)) {
+        for (const [division, universities] of Object.entries(props.boysUniversities)) {
             const foundIndex = universities.findIndex(u => u.id === university.id);
             if (foundIndex !== -1) {
-                universityWithRanks.boys_league_rank = foundIndex + 1;
+                universityWithRanks.boys_division_rank = foundIndex + 1;
                 break;
             }
         }
@@ -53,13 +53,13 @@ const openUniversityModal = (university, clickedLeagueRank = null, clickedGender
     
     // 女子のリーグ内順位を検索
     if (clickedGender === 'girls') {
-        universityWithRanks.girls_league_rank = clickedLeagueRank;
+        universityWithRanks.girls_division_rank = clickedDivisionRank;
     } else {
         // 女子リーグから該当大学を検索
-        for (const [league, universities] of Object.entries(props.girlsUniversities)) {
+        for (const [division, universities] of Object.entries(props.girlsUniversities)) {
             const foundIndex = universities.findIndex(u => u.id === university.id);
             if (foundIndex !== -1) {
-                universityWithRanks.girls_league_rank = foundIndex + 1;
+                universityWithRanks.girls_division_rank = foundIndex + 1;
                 break;
             }
         }
@@ -106,12 +106,12 @@ const closeUniversityModal = () => {
                                 </h3>
                                 <div class="space-y-4">
                                     <div
-                                        v-for="(universities, league) in boysUniversities"
-                                        :key="`boys-${league}`"
+                                        v-for="(universities, division) in boysUniversities"
+                                        :key="`boys-${division}`"
                                         class="rounded-lg border border-gray-200 p-4"
                                     >
                                         <h4 class="mb-3 text-lg font-semibold text-gray-700">
-                                            {{ league }}部
+                                            {{ division }}部
                                         </h4>
                                         <ul class="space-y-2">
                                             <li
@@ -135,12 +135,12 @@ const closeUniversityModal = () => {
                                 </h3>
                                 <div class="space-y-4">
                                     <div
-                                        v-for="(universities, league) in girlsUniversities"
-                                        :key="`girls-${league}`"
+                                        v-for="(universities, division) in girlsUniversities"
+                                        :key="`girls-${division}`"
                                         class="rounded-lg border border-gray-200 p-4"
                                     >
                                         <h4 class="mb-3 text-lg font-semibold text-gray-700">
-                                            {{ league }}部
+                                            {{ division }}部
                                         </h4>
                                         <ul class="space-y-2">
                                             <li

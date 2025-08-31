@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('universities', function (Blueprint $table) {
-            $table->integer('boys_rank')->nullable()->after('boys_division');
-            $table->integer('girls_rank')->nullable()->after('girls_division');
+            $table->renameColumn('boys_league', 'boys_division');
+            $table->renameColumn('girls_league', 'girls_division');
         });
     }
 
@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('universities', function (Blueprint $table) {
-            $table->dropColumn(['boys_rank', 'girls_rank']);
+            $table->renameColumn('boys_division', 'boys_league');
+            $table->renameColumn('girls_division', 'girls_league');
         });
     }
 };
